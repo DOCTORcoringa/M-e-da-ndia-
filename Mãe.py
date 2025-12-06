@@ -33,9 +33,10 @@ def caixa_banner(banner):
 # BARRA DE CARREGAMENTO
 # ============================
 def barra_carregamento(acao, qtd):
-    print(RED + f"╭┄┄┄┄┄┄❲ {PAINEL} | PROCESSO ❳┄┄┄┄┄┄╮")
-    print(RED + f"│ Executando: {acao}")
-    print(RED + "│ Carregando...\n│")
+    os.system(CLEAR)
+    print(RED + f"╭┄┄┄┄┄┄❲ PROCESSANDO {acao.upper()} ❳┄┄┄┄┄┄╮")
+    print(RED + f"│ Executando...")
+    print(RED + "│")
 
     for _ in tqdm(range(qtd), bar_format=RED + "│ {l_bar}{bar}{r_bar}"):
         time.sleep(0.2)
@@ -90,9 +91,9 @@ def validar_ddi(numero):
 def executar_unico(tipo):
     os.system(CLEAR)
 
-    print(caixa("AÇÃO EM EXECUÇÃO", [
-        f"Ação: {tipo}",
-        "Uso restrito — Ambiente controlado"
+    print(caixa("AÇÃO INICIADA", [
+        f"Ação Selecionada: {tipo}",
+        "Use apenas em ambiente autorizado"
     ]))
 
     ddi = escolher_ddi()
@@ -108,30 +109,29 @@ def executar_unico(tipo):
 
     print(caixa("RELATÓRIO FINAL", [
         f"Número: {numero}",
-        f"Ação: {tipo}",
+        f"Ação realizada: {tipo}",
         "Status: Concluído"
     ]))
 
     input(RED + "ENTER para voltar..." + RESET)
 
 # ============================
-# EXECUÇÃO — MODO MULTI (2+ NÚMEROS)
+# EXECUÇÃO — MODO MULTI
 # ============================
 def executar_multi(tipo):
     os.system(CLEAR)
 
-    print(caixa("AÇÃO EM EXECUÇÃO", [
-        f"Ação: {tipo}",
-        "Múltiplos números",
-        "Uso restrito — Ambiente controlado"
+    print(caixa("AÇÃO INICIADA", [
+        f"Ação Selecionada: {tipo}",
+        "Modo múltiplos números"
     ]))
 
     ddi = escolher_ddi()
-    nums = input(RED + f"{PAINEL} | Números locais (separados por vírgula): " + RESET)
+    nums = input(RED + f"{PAINEL} | Números (vírgula): " + RESET)
     lista = [ddi + n.strip() for n in nums.split(",") if n.strip()]
 
     if len(lista) < 2:
-        print(caixa("ERRO", ["Mínimo de 2 números!"]))
+        print(caixa("ERRO", ["É necessário no mínimo 2 números!"]))
         input(RED + "ENTER..." + RESET)
         return
 
@@ -144,8 +144,8 @@ def executar_multi(tipo):
     barra_carregamento(tipo, len(lista))
 
     print(caixa("RELATÓRIO FINAL", [
-        f"Total: {len(lista)} números",
-        f"Ação: {tipo}",
+        f"Números processados: {len(lista)}",
+        f"Ação realizada: {tipo}",
         "Status: Concluído"
     ]))
 
@@ -157,7 +157,7 @@ def executar_multi(tipo):
 def menu():
     os.system(CLEAR)
 
-    banner = f"""███╗░░██╗██╗██╗░░██╗
+    banner = """███╗░░██╗██╗██╗░░██╗
 ████╗░██║██║╚██╗██╔╝
 ██╔██╗██║██║░╚███╔╝░
 ██║╚████║██║░██╔██╗░
