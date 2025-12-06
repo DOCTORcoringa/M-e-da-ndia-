@@ -35,7 +35,7 @@ def caixa_banner(banner):
 def barra_carregamento(acao, qtd):
     os.system(CLEAR)
     print(RED + f"╭┄┄┄┄┄┄❲ PROCESSANDO {acao.upper()} ❳┄┄┄┄┄┄╮")
-    print(RED + f"│ Executando...")
+    print(RED + "│ Executando...")
     print(RED + "│")
 
     for _ in tqdm(range(qtd), bar_format=RED + "│ {l_bar}{bar}{r_bar}"):
@@ -105,11 +105,13 @@ def executar_unico(tipo):
         input(RED + "ENTER..." + RESET)
         return
 
-    barra_carregamento(tipo, 1)
+    qtd = int(input(RED + f"{PAINEL} | Quantidade: " + RESET))
+    barra_carregamento(tipo, qtd)
 
     print(caixa("RELATÓRIO FINAL", [
         f"Número: {numero}",
         f"Ação realizada: {tipo}",
+        f"Quantidade executada: {qtd}",
         "Status: Concluído"
     ]))
 
@@ -141,11 +143,14 @@ def executar_multi(tipo):
             input(RED + "ENTER..." + RESET)
             return
 
-    barra_carregamento(tipo, len(lista))
+    qtd = int(input(RED + f"{PAINEL} | Quantidade por número: " + RESET))
+    total = len(lista) * qtd
+    barra_carregamento(tipo, total)
 
     print(caixa("RELATÓRIO FINAL", [
         f"Números processados: {len(lista)}",
         f"Ação realizada: {tipo}",
+        f"Quantidade total: {total}",
         "Status: Concluído"
     ]))
 
@@ -169,7 +174,7 @@ def menu():
 ██████╔╝███████║██║██╔██╗██║███████║███████║
 ██╔══██╗██╔══██║██║██║╚████║██╔══██║██╔══██║
 ██║░░██║██║░░██║██║██║░╚███║██║░░██║██║░░██║
-╚═╝░░╚═╝╚═╝░░╚═╝╚═╝╚═╝░░╚══╝╚═╝░░╚═╝╚═╝░░╚═╝"""
+╚═╝░░╚══╝╚═╝░░╚═╝╚═╝╚═╝░░╚══╝╚═╝░░╚═╝╚═╝░░╚═╝"""
 
     print(caixa_banner(banner))
 
