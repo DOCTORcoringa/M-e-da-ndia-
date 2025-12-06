@@ -30,6 +30,37 @@ def caixa_banner(banner):
     return f"{topo}\n{corpo}\n{baixo}"
 
 # ============================
+# ESCOLHA DE QUANTIDADE (NOVA)
+# ============================
+def escolher_quantidade():
+    print(caixa("QUANTIDADE", [
+        "1 - 100",
+        "2 - 250",
+        "3 - 500",
+        "4 - 1000",
+        "5 - Digitar quantidade manualmente"
+    ]))
+
+    while True:
+        opc = input(RED + f"{PAINEL} | Escolha: " + RESET).strip()
+
+        if opc == "1":
+            return 100
+        elif opc == "2":
+            return 250
+        elif opc == "3":
+            return 500
+        elif opc == "4":
+            return 1000
+        elif opc == "5":
+            custom = input(RED + f"{PAINEL} | Digite a quantidade: " + RESET).strip()
+            if custom.isdigit():
+                return int(custom)
+            print(caixa("ERRO", ["Quantidade inválida."]))
+        else:
+            print(caixa("ERRO", ["Opção inválida."]))
+
+# ============================
 # BARRA DE CARREGAMENTO
 # ============================
 def barra_carregamento(acao, qtd):
@@ -38,8 +69,10 @@ def barra_carregamento(acao, qtd):
     print(RED + "│ Executando...")
     print(RED + "│")
 
+    tempo = 0.1 * qtd / 10
+
     for _ in tqdm(range(qtd), bar_format=RED + "│ {l_bar}{bar}{r_bar}"):
-        time.sleep(0.2)
+        time.sleep(tempo)
 
     print(RED + "╰┄┄┄┄┄┄┄┄┄┄┄╯" + RESET)
 
@@ -105,7 +138,7 @@ def executar_unico(tipo):
         input(RED + "ENTER..." + RESET)
         return
 
-    qtd = int(input(RED + f"{PAINEL} | Quantidade: " + RESET))
+    qtd = escolher_quantidade()
     barra_carregamento(tipo, qtd)
 
     print(caixa("RELATÓRIO FINAL", [
@@ -143,7 +176,7 @@ def executar_multi(tipo):
             input(RED + "ENTER..." + RESET)
             return
 
-    qtd = int(input(RED + f"{PAINEL} | Quantidade por número: " + RESET))
+    qtd = escolher_quantidade()
     total = len(lista) * qtd
     barra_carregamento(tipo, total)
 
@@ -167,7 +200,7 @@ def menu():
 ██╔██╗██║██║░╚███╔╝░
 ██║╚████║██║░██╔██╗░
 ██║░╚███║██║██╔╝╚██╗
-╚═╝░░╚══╝╚═╝╚═╝░░╚═╝
+╚═╝░░╚══╝╚═╝░░╚═╝░░╚═╝
 
 ██████╗░░█████╗░██╗███╗░░██╗██╗░░██╗░█████╗░
 ██╔══██╗██╔══██╗██║████╗░██║██║░░██║██╔══██╗
